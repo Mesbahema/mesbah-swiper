@@ -9,6 +9,7 @@ export default function EffectCards({ swiper, extendParams, on }) {
       slideShadows: true,
       transformEl: null,
       rotate: true,
+      gap: 8,
     },
   });
 
@@ -29,12 +30,15 @@ export default function EffectCards({ swiper, extendParams, on }) {
         offset -= slides[0].swiperSlideOffset;
       }
       let tX = swiper.params.cssMode ? -offset - swiper.translate : -offset;
+      // let tX = 10;
       let tY = 0;
       const tZ = -100 * Math.abs(progress);
       let scale = 1;
       let rotate = -2 * progress;
 
-      let tXAdd = 8 - Math.abs(progress) * 0.75;
+      // TODO: let tXAdd = 8 - Math.abs(progress) * 0.75;
+      // let tXAdd =  - 20 + Math.abs(progress) * 0.75;?\
+      let tXAdd = (params.gap || 8) - Math.abs(progress) * 0.75;
 
       const slideIndex =
         swiper.virtual && swiper.params.virtual.enabled ? swiper.virtual.from + i : i;
@@ -56,6 +60,7 @@ export default function EffectCards({ swiper, extendParams, on }) {
         const subProgress = (1 - Math.abs((Math.abs(progress) - 0.5) / 0.5)) ** 0.5;
         rotate += -28 * progress * subProgress;
         scale += -0.5 * subProgress;
+        // TODO: tXAdd += 96 * subProgress;
         tXAdd += 96 * subProgress;
         tY = `${-25 * subProgress * Math.abs(progress)}%`;
       }
